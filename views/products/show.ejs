@@ -1,0 +1,188 @@
+<%= layout('layouts/app') %>
+<link rel="stylesheet" href="/css/star.css" />
+
+<div class="container">
+  <!-- Product -->
+  <div class="flex mx-10 gap-5 min-h-screen mt-10">
+    <div class="w-3/6">
+      <div class="rounded overflow-hidden shadow-lg">
+        <div
+          id="carouselExampleControls"
+          class="carousel slide"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-inner">
+            <% product.images.forEach((image, index) => {%>
+            <div class="carousel-item <%= index === 0 ? 'active' : "" %>">
+              <img
+                src="/images/<%= image.filename %>"
+                alt="<%= product.title %>"
+                class="d-block w-100"
+              />
+            </div>
+            <% }) %>
+          </div>
+          <% if(product.images.length > 1) { %>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+          <% } %>
+        </div>
+
+        <div class="px-6 py-4">
+          <div class="font-bold text-xl mb-2"><%= product.title %></div>
+          <p class="text-gray-700 text-base"><%= product.description %></p>
+          <p class="text-gray-700 text-base"><%= product.location %></p>
+          <p class="text-gray-700 text-base">
+            Author: <%= product.author.username %>
+          </p>
+        </div>
+        <div class="p-10 flex justify-between">
+          <div class="gap-5">
+            <% if(currentUser && product.author.equals(currentUser._id)) {%>
+            <a href="/products/<%= product._id %>/edit" class="btn btn-warning"
+              >Edit</a
+            >
+            <form
+              class="btn btn-danger"
+              action="/products/<%= product._id %>?_method=DELETE"
+              method="post"
+              style="display: inline !important"
+            >
+              <button type="submit">Delete</button>
+            </form>
+            <% } else {%>
+            <a class="btn btn-primary ml-3">Beli</a>
+            <% } %>
+          </div>
+          <h1 class="text-md text-red-500 font-semibold">
+            Rp: <%= product.price %>
+          </h1>
+        </div>
+      </div>
+    </div>
+    <!-- Reviews -->
+    <div class="w-3/6">
+      <h3 class="text-2xl font-semibold">Laveve a review</h3>
+      <% if(currentUser ) {%>
+      <form
+        action="/products/<%= product._id %>/reviews"
+        method="post"
+        class="validated-form mb-3"
+        novalidate
+      >
+        <div class="mb-3">
+          <label for="" class="">Ratting</label>
+          <fieldset class="starability-basic">
+            <input
+              type="radio"
+              id="no-rate"
+              class="input-no-rate"
+              name="review[ratting]"
+              value="1"
+              checked
+              aria-label="No rating."
+            />
+            <input
+              type="radio"
+              id="first-rate1"
+              name="review[ratting]"
+              value="1"
+            />
+            <label for="first-rate1" title="Terrible">1 star</label>
+            <input
+              type="radio"
+              id="first-rate2"
+              name="review[ratting]"
+              value="2"
+            />
+            <label for="first-rate2" title="Not good">2 stars</label>
+            <input
+              type="radio"
+              id="first-rate3"
+              name="review[ratting]"
+              value="3"
+            />
+            <label for="first-rate3" title="Average">3 stars</label>
+            <input
+              type="radio"
+              id="first-rate4"
+              name="review[ratting]"
+              value="4"
+            />
+            <label for="first-rate4" title="Very good">4 stars</label>
+            <input
+              type="radio"
+              id="first-rate5"
+              name="review[ratting]"
+              value="5"
+            />
+            <label for="first-rate5" title="Amazing">5 stars</label>
+          </fieldset>
+        </div>
+        <div class="mb-3">
+          <label for="review">Review</label>
+          <textarea
+            name="review[body]"
+            id="review"
+            cols="30"
+            rows="7"
+            class="form-control"
+            required
+          ></textarea>
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Please fill out this filed</div>
+        </div>
+        <button
+          type="submit"
+          class="px-6 py-2 bg-green-500 shadow-lg hover:bg-green-600 text-white rounded-md"
+        >
+          Submit
+        </button>
+      </form>
+      <% } %> <% for(const review of product.reviews) { %>
+      <div class="card mb-3">
+        <div class="card-body flex justify-between items-center">
+          <div class="">
+            <p
+              class="starability-result mb-3"
+              data-rating="<%= review.ratting %>"
+            >
+              Rated: <%= review.ratting %> stars
+            </p>
+            <p><%= review.body %></p>
+          </div>
+          <% if(currentUser && review.author.equals(currentUser._id)) { %>
+          <form
+            action="/products/<%= product._id %>/reviews/<%= review._id %>?_method=Delete"
+            method="post"
+          >
+            <button
+              type="submit"
+              class="px-4 py-2 bg-red-500 rounded-md shadow-lg text-sm text-white font-semibold"
+            >
+              Delete
+            </button>
+          </form>
+          <% } %>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>

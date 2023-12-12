@@ -1,0 +1,10 @@
+<% layout('layouts/app') %>
+<div class="container flex items-center min-h-screen">
+  <div class="row mx-20">
+    <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading text-2xl font-semibold py-3"><%= err %></h4>
+      <hr class="mb-3K" />
+      <p class="text-xl"><%= err.stack %></p>
+    </div>
+  </div>
+</div>

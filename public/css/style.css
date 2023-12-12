@@ -1,0 +1,12 @@
+.herohome {
+  background-image: url("../assets/bg/1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: aqua;
+}
+
+.img {
+  background-image: url("../Assets/bg/2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}

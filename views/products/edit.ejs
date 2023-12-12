@@ -1,0 +1,161 @@
+<%= layout('layouts/app') %>
+
+<h1 class="text-center text-4xl text-gray-900 font-semibold m-8">
+  Edit Product
+</h1>
+<div class="row mb-5">
+  <div class="col-6 <%= !product.images.length > 0 ? 'offset-3' : '' %>">
+    <form
+      action="/products/<%= product._id %>?_method=put"
+      method="post"
+      class="flex flex-col items-center justify-center validated-form"
+      novalidate
+      enctype="multipart/form-data"
+    >
+      <div class="bg-gray-100 w-[500px] p-10 rounded-lg shadow-lg">
+        <h1 class="text-center text-xl font-semibold my-2">Edit Product</h1>
+
+        <div class="mb-6">
+          <label
+            for="title"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            title</label
+          >
+          <input
+            type="text"
+            name="product[title]"
+            class="form-control"
+            required
+            value="<%= product.title %>"
+          />
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Please fill out this filed</div>
+        </div>
+        <div class="mb-6">
+          <label
+            for="image"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Image</label
+          >
+          <input
+            type="file"
+            id="image"
+            name="image"
+            class="form-control"
+            accept="image/*"
+            multiple
+          />
+
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Please fill out this filed</div>
+        </div>
+        <div class="mb-6">
+          <label
+            for="price"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Price</label
+          >
+          <input
+            type="text"
+            id="price"
+            name="product[price]"
+            class="form-control"
+            value="<%= product.price %>"
+            required
+          />
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Please fill out this filed</div>
+        </div>
+        <div class="mb-6">
+          <label
+            for="location"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Location</label
+          >
+          <input
+            type="text"
+            id="location"
+            name="product[location]"
+            class="form-control"
+            value="<%= product.location %>"
+            required
+          />
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Please fill out this filed</div>
+        </div>
+        <div class="mb-6">
+          <label
+            for="description"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Description</label
+          >
+          <textarea
+            type="text"
+            id="description"
+            name="product[description]"
+            class="form-control"
+            required
+          >
+            <%= product.description %></textarea
+          >
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Please fill out this filed</div>
+        </div>
+
+        <button
+          type="submit"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          update
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="col-6">
+    <h5 class="text-center">Delete Image</h5>
+    <div class="form-group form-check">
+      <input type="checkbox" id="checkAll" class="form-check-input" />
+      <label for="checkAll" class="form-check-label">checkAll</label>
+    </div>
+    <form
+      action="/products/<%= product._id %>/images?_method=DELETE"
+      method="POST"
+      class="d-flex flex-wrap gap-3"
+    >
+      <% product.images.forEach((image, index ) => { %>
+      <div class="col-md-4">
+        <div class="card mb-3">
+          <img
+            src="/images/<%= image.filename %>"
+            class="card-img-top"
+            alt=""
+          />
+          <div class="card-body">
+            <label for="" class="custom-checkbox">
+              <input type="checkbox" name="images[]" value="<%= image.url %>" />
+              <span class="custom-checkbox-text">Pilih</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+      <div class="w-100"></div>
+      <button
+        class="px-10 py-2 bg-red-500 font-semibold rounded-lg text-white"
+        type="submit"
+      >
+        Delete
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.getElementById("checkAll").addEventListener("change", function () {
+    const chekboxs = document.getElementsByName("images[]");
+    for (let i = 0; i < chekboxs.length; i++) {
+      chekboxs[i].checked = this.checked;
+    }
+  });
+</script>

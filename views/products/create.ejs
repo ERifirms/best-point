@@ -1,0 +1,98 @@
+<% layout('layouts/app') %>
+<form
+  action="/products"
+  method="post"
+  class="flex flex-col items-center justify-center validated-form"
+  novalidate
+  enctype="multipart/form-data"
+>
+  <div class="bg-gray-100 w-[500px] p-10 rounded-lg shadow-lg">
+    <h1 class="text-center text-xl font-semibold my-2">Add Product</h1>
+
+    <div class="mb-6">
+      <label
+        for="title"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+      >
+        title</label
+      >
+      <input type="text" name="product[title]" class="form-control" required />
+      <div class="valid-feedback">Looks good!</div>
+      <div class="invalid-feedback">Please fill out this filed</div>
+    </div>
+    <div class="mb-6">
+      <label
+        for="image"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Image</label
+      >
+      <input
+        type="file"
+        id="image"
+        name="image"
+        class="form-control"
+        required
+        accept="image/*"
+        multiple
+      />
+      <div class="valid-feedback">Looks good!</div>
+      <div class="invalid-feedback">Please fill out this filed</div>
+    </div>
+    <div class="mb-6">
+      <label
+        for="price"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Price</label
+      >
+      <input
+        type="text"
+        id="price"
+        name="product[price]"
+        class="form-control"
+        required
+      />
+      <div class="valid-feedback">Looks good!</div>
+      <div class="invalid-feedback">Please fill out this filed</div>
+    </div>
+    <div class="mb-6">
+      <label
+        for="location"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Location</label
+      >
+      <input
+        type="text"
+        id="location"
+        name="product[location]"
+        class="form-control"
+        required
+      />
+      <div class="valid-feedback">Looks good!</div>
+      <div class="invalid-feedback">Please fill out this filed</div>
+    </div>
+    <div class="mb-6">
+      <label
+        for="description"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Description</label
+      >
+      <textarea
+        type="text"
+        id="description"
+        name="product[description]"
+        class="form-control"
+        required
+      ></textarea>
+      <div class="valid-feedback">Looks good!</div>
+      <div class="invalid-feedback">Please fill out this filed</div>
+    </div>
+
+    <button
+      type="submit"
+      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    >
+      Create
+    </button>
+  </div>
+</form>
+<!--  -->
