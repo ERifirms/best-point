@@ -1,0 +1,32 @@
+<%= layout('layouts/app') %>
+
+<h1 class="text-center text-2xl font-semibold text-gray-700 mt-5">
+  Pembayaran
+</h1>
+<p class="text-center text-3xl font-semibold text-gray-700">
+  Total Amount: <%= product.price %>
+</p>
+<div class="flex items-center justify-center mt-10">
+  <button class="btn btn-success" onclick="payNow()">Pay Now</button>
+</div>
+<script
+  type="text/javascript"
+  src="https://app.sandbox.midtrans.com/snap/snap.js"
+  data-client-key="<%= snapToken.clientKey %>"
+></script>
+<script>
+  function payNow() {
+    console.log("payNow function called"); // Pastikan pesan ini muncul di konsol
+    snap.pay("<%= snapToken.token %>", {
+      onSuccess: function (result) {
+        console.log("Payment success:", result);
+      },
+      onPending: function (result) {
+        console.log("Payment pending:", result);
+      },
+      onError: function (result) {
+        console.log("Payment error:", result);
+      },
+    });
+  }
+</script>

@@ -1,9 +1,9 @@
 <!-- Main navigation container -->
 <nav
-  class="z-[999] md:px-10 sticky-top flex-no-wrap flex w-full items-center justify-between bg-[#FBFBFB] py-2 shadow-lg shadow-black/5 dark:bg-neutral-600 dark:shadow-black/10 lg:flex-wrap lg:justify-start lg:py-4"
+  class="[999] md:px-10 sticky-top flex-no-wrap flex w-full items-center justify-between bg-[#FBFBFB] py-2 shadow-lg shadow-black/5 dark:bg-neutral-600 dark:shadow-black/10 lg:flex-wrap lg:justify-start lg:py-4"
   data-te-navbar-ref
 >
-  <div class="flex w-full px-3">
+  <div class="flex w-full px-3 container">
     <!-- Hamburger button for mobile view -->
     <button
       class="block border-0 bg-transparent px-2 text-neutral-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 lg:hidden"
@@ -46,7 +46,7 @@
             class="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-zinc-400"
             href="/"
             data-te-nav-link-ref
-            >Dashboard</a
+            >Home</a
           >
         </li>
         <!-- Team link -->
@@ -59,14 +59,16 @@
           >
         </li>
         <!-- Projects link -->
+        <% if(currentUser && currentUser.rool == "admin") {%>
         <li class="" data-te-nav-item-ref>
           <a
             class="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-            href="/products/create"
+            href="/admin/dashboard"
             data-te-nav-link-ref
-            >add Product</a
+            >Dashboard</a
           >
         </li>
+        <% } %>
       </ul>
     </div>
 

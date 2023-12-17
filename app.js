@@ -61,9 +61,11 @@ app.get("/", (req, res) => {
 });
 
 // routers
+app.use("/admin", require("./routes/admin/admin.routes")); // admin
 app.use("/", require("./routes/auth.routes"));
 app.use("/products", require("./routes/product.routes"));
 app.use("/", require("./routes/review.routes"));
+app.use("/", require("./routes/pyment.routes"));
 
 app.all("*", (req, res, next) => {
   next(new ExpressError("Page not foud", 404));
@@ -76,5 +78,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log("Server is Running on http://localhost:9000");
+  console.log("Server is Running on http://localhost:3000");
 });

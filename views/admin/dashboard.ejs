@@ -1,0 +1,41 @@
+<% layout('layouts/app') %>
+
+<div class="container mt-5">
+  <h1 class="text-center text-4xl font-semibold mb-5">Dashboard</h1>
+  <a class="btn btn-success" href="/products/create">Add Product</a>
+  <table class="table table-striped">
+    <thead class="">
+      <tr>
+        <th>Title</th>
+        <th>price</th>
+        <th>location</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (const item of items){ %>
+      <tr>
+        <td><%= item.title %></td>
+        <td><%= item.price %></td>
+        <td><%= item.location %></td>
+        <td>
+          <a href="/products/<%= item._id %>/edit" class="btn btn-warning"
+            >edit</a
+          >
+        </td>
+        <td>
+          <form
+            class="btn btn-danger"
+            action="/products/<%= item._id %>?_method=DELETE"
+            method="post"
+            style="display: inline !important"
+          >
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
